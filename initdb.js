@@ -1,5 +1,5 @@
 const sql = require('better-sqlite3');
-const db = sql('meals.db');
+const db = sql('recipes.db');
 
 const recipes = [
   {
@@ -314,6 +314,7 @@ async function initData() {
    `);
 
   for (const recipe of recipes) {
+    recipe.is_vegetarian = recipe.is_vegetarian.toString();
     stmt.run(recipe);
   }
 }
