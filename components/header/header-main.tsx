@@ -20,7 +20,7 @@ function HeaderMain({}: Props) {
           <ul className="list-none m-0 p-0 flex gap-6 text-lg">
             <li>
               <Link
-                href="/recipes"
+                href="/"
                 className="no-underline text-[#ddd6cb] font-bold py-2 px-4 rounded-md"
               >
                 Recipes

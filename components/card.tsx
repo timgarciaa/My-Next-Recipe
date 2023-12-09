@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import VeganIcon from "@/assets/vegan.png";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { HeartIcon } from "@heroicons/react/24/outline";
+import {HeartIcon as HeartIconSolid} from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -12,15 +13,23 @@ type Props = {
   title: string;
   servingPortions?: number;
   isVegetarian?: boolean;
+  isFavorite?: boolean;
   image: string;
 };
 
-function Card({ id, title, servingPortions, isVegetarian, image }: Props) {
+function Card({ id, title, servingPortions, isVegetarian, isFavorite, image }: Props) {
   const router = useRouter();
+
+  const [isFavoriteState, setIsFavoriteState] = useState(isFavorite);
 
   const clickCard = () => {
     router.push(`/recipe/${id}`);
   };
+
+  const clickHeart = (event: any) => {
+    event.stopPropagation();
+    setIsFavoriteState(!isFavoriteState);
+  }
 
   return (
     <div
@@ -45,8 +54,8 @@ function Card({ id, title, servingPortions, isVegetarian, image }: Props) {
           <Image src={VeganIcon.src} alt="Vegan" width={20} height={20} />
         )}
       </div>
-      <div className="absolute top-2 right-2">
-        <HeartIcon className="w-5 h-5" />
+      <div className="absolute top-2 right-2 z-50" onClick={clickHeart}>
+        {isFavoriteState ? <HeartIconSolid className="w-5 h-5" /> : <HeartIcon className="w-5 h-5" />}
       </div>
     </div>
   );

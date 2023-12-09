@@ -18,6 +18,7 @@ export default async function Home() {
               title={recipe.title}
               servingPortions={recipe.serving_portions}
               isVegetarian={recipe.is_vegetarian === 'true'}
+              isFavorite={recipe.is_favorite === 'true'}
               image={recipe.image}
             />
           );

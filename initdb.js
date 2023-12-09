@@ -18,6 +18,7 @@ const recipes = [
          Complete the assembly with the top bun and serve hot.
     `,
     is_vegetarian: false,
+    is_favorite: false,
     serving_portions: 1,
     image: '/images/burger.jpg',
     ingredients: `
@@ -57,6 +58,7 @@ const recipes = [
          Serve hot.
     `,
     is_vegetarian: true,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/pizza.jpg',
     ingredients: `
@@ -89,6 +91,7 @@ const recipes = [
          Serve cold.
     `,
     is_vegetarian: true,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/salad.jpg',
     ingredients: `
@@ -116,6 +119,7 @@ const recipes = [
          Serve hot.
     `,
     is_vegetarian: false,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/spaghetti.jpg',
     ingredients: `
@@ -145,6 +149,7 @@ const recipes = [
          Cut the sushi roll into 8 pieces and serve cold.
     `,
     is_vegetarian: true,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/sushi.jpg',
     ingredients: `
@@ -169,6 +174,7 @@ const recipes = [
          Serve hot.
     `,
     is_vegetarian: true,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/ramen.jpg',
     ingredients: `
@@ -195,6 +201,7 @@ const recipes = [
          Serve cold.
     `,
     is_vegetarian: true,
+    is_favorite: false,
     serving_portions: 4,
     image: '/images/chocolate-cake.jpg',
     ingredients: `
@@ -220,6 +227,7 @@ const recipes = [
          Serve hot over a bowl of rice.
     `,
     is_vegetarian: false,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/gyudon.jpg',
     ingredients: `
@@ -247,6 +255,7 @@ const recipes = [
          Serve hot with a side of blue cheese dip.
     `,
     is_vegetarian: false,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/buffalo-wings.jpg',
     ingredients: `
@@ -271,6 +280,7 @@ const recipes = [
          Serve hot.
     `,
     is_vegetarian: false,
+    is_favorite: false,
     serving_portions: 2,
     image: '/images/pork-sinigang.jpg',
     ingredients: `
@@ -315,6 +325,7 @@ async function initData() {
 
   for (const recipe of recipes) {
     recipe.is_vegetarian = recipe.is_vegetarian.toString();
+    recipe.is_favorite = recipe.is_favorite.toString();
     stmt.run(recipe);
   }
 }
