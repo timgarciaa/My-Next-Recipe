@@ -1,7 +1,21 @@
+"use client";
+import { useState, useEffect } from "react";
 import ImagePicker from "@/components/imagePicker";
-import { addRecipe } from "@/utils/actionUtils";
+import { addRecipe, getIngredients } from "@/utils/actionUtils";
+import { Ingredient } from "@/types/ingredient.type";
 
-export default async function RecipeAddForm() {
+export default function RecipeAddForm() {
+  const [ingredients, setIngredients] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const ingredients = await getIngredients();
+      setIngredients(ingredients.map((ingredient: Ingredient) => ingredient));
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="max-w-4xl p-6 rounded shadow-md bg-[#5a453b]">
@@ -30,6 +44,25 @@ export default async function RecipeAddForm() {
             name="serving_portions"
             id="serving_portions"
           />
+          <label htmlFor="ingredients">Ingredients</label>
+          <div className="grid grid-cols-4 gap-4">
+            {ingredients.map((ingredient: Ingredient, index) => {
+              const ingredientId =
+                ingredient.id !== undefined ? ingredient.id.toString() : "";
+              return (
+                <div key={index}>
+                  <input
+                    className="rounded-md p-2 text-black"
+                    type="checkbox"
+                    name="ingredients"
+                    id={ingredientId}
+                    value={ingredient.id}
+                  />
+                  <label htmlFor={ingredient.name} className="pl-2">{ingredient.name}</label>
+                </div>
+              );
+            })}
+          </div>
           <label htmlFor="cooking_instructions">Cooking Instructions</label>
           <textarea
             className="rounded-md p-2 text-black"

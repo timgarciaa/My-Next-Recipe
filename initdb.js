@@ -755,8 +755,8 @@ async function initData() {
     stmt.run(recipe);
   }
 
-  for (const engredient of ingredients) {
-    stmt2.run(engredient);
+  for (const ingredient of ingredients) {
+    stmt2.run(ingredient);
   }
 
   for (const recipe_ingredient of recipe_ingredients) {

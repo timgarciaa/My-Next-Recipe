@@ -9,15 +9,12 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   const recipe: Recipe = await request.json();
-  console.log(recipe);
   const result = addRecipe(recipe);
   return Response.json(result);
 }
 
 export async function PUT(request: NextRequest) {
-  const id = Number(request.nextUrl.pathname.split("/")[3]);
   const recipe: Recipe = await request.json();
-  console.log(recipe);
   const result = updateRecipe(recipe);
   return Response.json(result);
 }

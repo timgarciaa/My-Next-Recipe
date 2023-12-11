@@ -6,5 +6,5 @@ export type Recipe = {
   is_favorite: string;
   serving_portions: number;
   image: string;
-  creation_date: string;
+  creation_date?: string;
 };

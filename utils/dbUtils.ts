@@ -28,9 +28,9 @@ export function getIngredients() {
   return ingredients;
 }
 
-export function getRecipeEngredients(id: number) {
+export function getRecipeIngredients(id: number) {
   const db = sql("recipes.db");
-  const recipesWithEngredients = db
+  const recipesWithIngredients = db
     .prepare(
       `
       SELECT
@@ -48,7 +48,31 @@ export function getRecipeEngredients(id: number) {
       `
     )
     .all(id);
-  return recipesWithEngredients;
+  return recipesWithIngredients;
+}
+
+export function addRecipeIngredients(
+  recipe_id: number,
+  ingredientIds: number[]
+) {
+  const db = sql("recipes.db");
+
+  const addRecipeIngredient = db.prepare(
+    `
+    INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
+    VALUES (?, ?)
+    `
+  );
+
+  for (const ingredientId of ingredientIds) {
+    addRecipeIngredient.run(recipe_id, ingredientId);
+  }
+
+  return {
+    message: "Ingredients added successfully",
+    recipe_id,
+    ingredientIds,
+  };
 }
 
 export function addRecipe(recipe: Recipe) {
@@ -90,8 +114,7 @@ export function updateRecipe(recipe: Recipe) {
         is_vegetarian = ?,
         is_favorite = ?,
         serving_portions = ?,
-        image = ?,
-        creation_date = ?
+        image = ?
       WHERE id = ?
       `
     )
@@ -102,8 +125,57 @@ export function updateRecipe(recipe: Recipe) {
       recipe.is_favorite,
       recipe.serving_portions,
       recipe.image,
-      recipe.creation_date,
       recipe.id
     );
   return updateRecipe;
+}
+
+export function updateRecipeIngredients(
+  recipe_id: number,
+  ingredientIds: number[]
+) {
+
+  console.log('ingredientIds: ', ingredientIds);
+  const db = sql("recipes.db");
+
+  const deleteRecipeIngredient = db.prepare(
+    `
+    DELETE FROM recipe_ingredients
+    WHERE recipe_id = ?
+    `
+  );
+
+  deleteRecipeIngredient.run(recipe_id);
+
+  const addRecipeIngredient = db.prepare(
+    `
+    INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
+    VALUES (?, ?)
+    `
+  );
+
+  for (const ingredientId of ingredientIds) {
+    console.log(ingredientId);
+    addRecipeIngredient.run(recipe_id, ingredientId);
+  }
+
+  return {
+    message: "Ingredients updated successfully",
+    recipe_id,
+    ingredientIds,
+  };
+}
+
+export function deleteRecipe(id: number) {
+  const db = sql("recipes.db");
+  const deleteRecipe = db.prepare("DELETE FROM recipes WHERE id = ?").run(id);
+  return deleteRecipe;
+}
+
+export function deleteRecipeIngredients(id: number) {
+  const db = sql("recipes.db");
+  const deleteRecipeIngredients = db
+    .prepare("DELETE FROM recipe_ingredients WHERE recipe_id = ?")
+    .run(id);
+  return deleteRecipeIngredients;
 }
