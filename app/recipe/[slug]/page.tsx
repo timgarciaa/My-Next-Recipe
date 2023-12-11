@@ -3,10 +3,13 @@ import Image from "next/image";
 export default async function Recipe({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  console.log(slug);
-
   const recipe = await fetch(`http://localhost:3000/api/recipes/${slug}`);
   const recipeJson = await recipe.json();
+
+  const recipeIngredients = await fetch(
+    `http://localhost:3000/api/recipes/${slug}/ingredients`
+  );
+  const recipeIngredientsJson = await recipeIngredients.json();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -19,10 +22,28 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
           width={300}
           height={300}
         />
-        <p className="mb-2"><strong>Vegetarian:</strong> {recipeJson.is_vegetarian}</p>
-        <p className="mb-2"><strong>Serving Portions:</strong> {recipeJson.serving_portions}</p>
-        <p className="mb-2"><strong>Ingredients:</strong> {recipeJson.ingredients}</p>
-        <p className="mb-2"><strong>Cooking Instructions:</strong> {recipeJson.cooking_instructions}</p>
+        <p className="mb-2">
+          <strong>Vegetarian:</strong> {recipeJson.is_vegetarian}
+        </p>
+        <p className="mb-2">
+          <strong>Serving Portions:</strong> {recipeJson.serving_portions}
+        </p>
+        <p className="mb-2">
+          <strong>Ingredients:</strong>{" "}
+        </p>
+        <ul>
+          {recipeIngredientsJson.map((ingredient: any) => {
+            return (
+              <li key={ingredient.ingredient_id}>
+                {ingredient.ingredient_name}
+              </li>
+            );
+          })}
+        </ul>
+        <p className="mb-2">
+          <strong>Cooking Instructions:</strong>{" "}
+          {recipeJson.cooking_instructions}
+        </p>
       </div>
     </div>
   );

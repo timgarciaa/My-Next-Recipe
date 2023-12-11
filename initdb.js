@@ -1,9 +1,9 @@
-const sql = require('better-sqlite3');
-const db = sql('recipes.db');
+const sql = require("better-sqlite3");
+const db = sql("recipes.db");
 
 const recipes = [
   {
-    title: 'Burger',
+    title: "Burger",
     cooking_instructions: `
       1. Prepare the patty:
          Mix 200g of ground beef with salt and pepper. Form into a patty.
@@ -20,21 +20,11 @@ const recipes = [
     is_vegetarian: false,
     is_favorite: false,
     serving_portions: 1,
-    image: '/images/burger.jpg',
-    ingredients: `
-      200g ground beef
-      1 burger bun
-      1 slice of cheese
-      1 tomato
-      1 lettuce
-      salt
-      pepper
-      oil
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/burger.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Pizza',
+    title: "Pizza",
     cooking_instructions: `
       1. Prepare the dough:
          Mix 250g of flour with 1 teaspoon of salt. Add 150ml of water and knead until smooth. Let the dough rest for 30 minutes.
@@ -60,23 +50,11 @@ const recipes = [
     is_vegetarian: true,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/pizza.jpg',
-    ingredients: `
-      250g flour
-      100ml tomato sauce
-      1 teaspoon salt
-      1 teaspoon pepper
-      1 teaspoon dried oregano
-      1 onion
-      1 bell pepper
-      5 mushrooms
-      50g salami
-      100g cheese
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/pizza.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Salad',
+    title: "Salad",
     cooking_instructions: `
       1. Prepare the vegetables:
          Slice 1 onion, 1 cucumber, 1 tomato and 1 bell pepper.
@@ -93,21 +71,11 @@ const recipes = [
     is_vegetarian: true,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/salad.jpg',
-    ingredients: `
-      1 onion
-      1 cucumber
-      1 tomato
-      1 bell pepper
-      2 tablespoons olive oil
-      1 tablespoon vinegar
-      salt
-      pepper
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/salad.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Spaghetti',
+    title: "Spaghetti",
     cooking_instructions: `
       1. Prepare the sauce:
          Heat a pan with 2 tablespoons of olive oil. Add 1 sliced onion and 2 cloves of garlic. Cook for 5 minutes. Add 500g of ground beef and cook for 10 minutes. Add 500ml of tomato sauce and cook for 15 minutes.
@@ -121,20 +89,11 @@ const recipes = [
     is_vegetarian: false,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/spaghetti.jpg',
-    ingredients: `
-      2 tablespoons olive oil
-      1 onion
-      2 cloves of garlic
-      500g ground beef
-      500ml tomato sauce
-      1 teaspoon salt
-      200g spaghetti
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/spaghetti.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Sushi',
+    title: "Sushi",
     cooking_instructions: `
       1. Prepare the rice:
          Rinse 200g of sushi rice in cold water until the water is clear. Add the rice to a pot with 250ml of water. Bring to boil, then reduce the heat and simmer for 10 minutes. Remove from heat and let rest for 15 minutes.
@@ -151,18 +110,11 @@ const recipes = [
     is_vegetarian: true,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/sushi.jpg',
-    ingredients: `
-      200g sushi rice
-      1 cucumber
-      1 avocado
-      1 carrot
-      1 sheet of nori
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/sushi.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Ramen',
+    title: "Ramen",
     cooking_instructions: `
       1. Prepare the broth:
          Bring 1l of water to boil. Add 1 tablespoon of salt, 1 tablespoon of soy sauce and 1 tablespoon of miso paste. Add 1 sliced onion, 1 sliced carrot and 1 sliced bell pepper. Simmer for 15 minutes.
@@ -176,20 +128,11 @@ const recipes = [
     is_vegetarian: true,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/ramen.jpg',
-    ingredients: `
-      1 tablespoon salt
-      1 tablespoon soy sauce
-      1 tablespoon miso paste
-      1 onion
-      1 carrot
-      1 bell pepper
-      200g ramen noodles
-      `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/ramen.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Chocolate Cake',
+    title: "Chocolate Cake",
     cooking_instructions: `
       1. Prepare the dough:
          Mix 200g of flour with 100g of sugar, 100g of butter and 1 egg. Add 1 teaspoon of baking powder and 1 tablespoon of cocoa powder. Mix until smooth.
@@ -203,19 +146,11 @@ const recipes = [
     is_vegetarian: true,
     is_favorite: false,
     serving_portions: 4,
-    image: '/images/chocolate-cake.jpg',
-    ingredients: `
-      200g flour
-      100g sugar
-      100g butter
-      1 egg
-      1 teaspoon baking powder
-      1 tablespoon cocoa powder
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/chocolate-cake.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Gyudon',
+    title: "Gyudon",
     cooking_instructions: `
       1. Prepare the sauce:
          Mix 250ml of water with 1 tablespoon of soy sauce, 1 tablespoon of mirin and 1 tablespoon of sugar.
@@ -229,18 +164,11 @@ const recipes = [
     is_vegetarian: false,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/gyudon.jpg',
-    ingredients: `
-      250ml water
-      1 tablespoon soy sauce
-      1 tablespoon mirin
-      1 tablespoon sugar
-      200g beef
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/gyudon.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Buffalo Wings',
+    title: "Buffalo Wings",
     cooking_instructions: `
       1. Prepare the chicken:
          Cut 500g of chicken wings into drumettes and wingettes. Mix with 1 tablespoon of salt and 1 tablespoon of pepper.
@@ -257,18 +185,11 @@ const recipes = [
     is_vegetarian: false,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/buffalo-wings.jpg',
-    ingredients: `
-      500g chicken wings
-      1 tablespoon salt
-      1 tablespoon pepper
-      100g butter
-      100ml hot sauce
-    `,
-    creation_date: '09-12-2023 15:00',
+    image: "/images/buffalo-wings.jpg",
+    creation_date: "09-12-2023 15:00",
   },
   {
-    title: 'Pork Sinigang',
+    title: "Pork Sinigang",
     cooking_instructions: `
       1. Prepare the broth:
          Bring 1l of water to boil. Add 1 tablespoon of salt, 1 tablespoon of soy sauce and 1 tablespoon of miso paste. Add 1 sliced onion, 1 sliced carrot and 1 sliced bell pepper. Simmer for 15 minutes.
@@ -282,32 +203,521 @@ const recipes = [
     is_vegetarian: false,
     is_favorite: false,
     serving_portions: 2,
-    image: '/images/pork-sinigang.jpg',
-    ingredients: `
-      1 tablespoon salt
-      1 tablespoon soy sauce
-      1 tablespoon miso paste
-      1 onion
-      1 carrot
-      1 bell pepper
-      200g ramen noodles
-    `,
-    creation_date: '09-12-2023 15:00',
-  }
+    image: "/images/pork-sinigang.jpg",
+    creation_date: "09-12-2023 15:00",
+  },
 ];
 
-db.prepare(`
+const ingredients = [
+  {
+    //1
+    name: "ground beef",
+    description: "minced beef",
+  },
+  {
+    //2
+    name: "burger bun",
+    description: "bread roll",
+  },
+  {
+    //3
+    name: "cheese",
+    description: "dairy product",
+  },
+  {
+    //4
+    name: "tomato",
+    description: "vegetable",
+  },
+  {
+    //5
+    name: "lettuce",
+    description: "vegetable",
+  },
+  {
+    //6
+    name: "salt",
+    description: "mineral",
+  },
+  {
+    //7
+    name: "pepper",
+    description: "spice",
+  },
+  {
+    //8
+    name: "oil",
+    description: "fat",
+  },
+  {
+    //9
+    name: "flour",
+    description: "powder",
+  },
+  {
+    //10
+    name: "tomato sauce",
+    description: "sauce",
+  },
+  {
+    //11
+    name: "oregano",
+    description: "herb",
+  },
+  {
+    //12
+    name: "onion",
+    description: "vegetable",
+  },
+  {
+    //13
+    name: "bell pepper",
+    description: "vegetable",
+  },
+  {
+    //14
+    name: "mushroom",
+    description: "vegetable",
+  },
+  {
+    //15
+    name: "salami",
+    description: "sausage",
+  },
+  {
+    //16
+    name: "cucumber",
+    description: "vegetable",
+  },
+  {
+    //17
+    name: "avocado",
+    description: "fruit",
+  },
+  {
+    //18
+    name: "carrot",
+    description: "vegetable",
+  },
+  {
+    //19
+    name: "olive oil",
+    description: "oil",
+  },
+  {
+    //20
+    name: "vinegar",
+    description: "liquid",
+  },
+  {
+    //21
+    name: "spaghetti",
+    description: "pasta",
+  },
+  {
+    //22
+    name: "garlic",
+    description: "vegetable",
+  },
+  {
+    //23
+    name: "sushi rice",
+    description: "rice",
+  },
+  {
+    //24
+    name: "nori",
+    description: "seaweed",
+  },
+  {
+    //25
+    name: "ramen noodles",
+    description: "noodles",
+  },
+  {
+    //26
+    name: "beef",
+    description: "meat",
+  },
+  {
+    //27
+    name: "chicken wings",
+    description: "poultry",
+  },
+  {
+    //28
+    name: "butter",
+    description: "dairy product",
+  },
+  {
+    //29
+    name: "hot sauce",
+    description: "sauce",
+  },
+  {
+    //30
+    name: "blue cheese",
+    description: "cheese",
+  },
+  {
+    //31
+    name: "pork",
+    description: "meat",
+  },
+  {
+    //32
+    name: "sinigang mix",
+    description: "mix",
+  },
+  {
+    //33
+    name: "miso paste",
+    description: "paste",
+  },
+  {
+    //34
+    name: "soy sauce",
+    description: "sauce",
+  },
+  {
+    //35
+    name: "mirin",
+    description: "alcohol",
+  },
+  {
+    //36
+    name: "sugar",
+    description: "sugar",
+  },
+  {
+    //37
+    name: "baking powder",
+    description: "powder",
+  },
+  {
+    //38
+    name: "cocoa powder",
+    description: "powder",
+  },
+  {
+    //39
+    name: "egg",
+    description: "egg",
+  },
+  {
+    //40
+    name: "water",
+    description: "liquid",
+  },
+];
+
+const recipe_ingredients = [
+  {
+    recipe_id: 1,
+    ingredient_id: 1,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 2,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 3,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 4,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 5,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 7,
+  },
+  {
+    recipe_id: 1,
+    ingredient_id: 8,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 9,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 10,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 7,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 11,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 12,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 13,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 14,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 15,
+  },
+  {
+    recipe_id: 2,
+    ingredient_id: 3,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 12,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 16,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 4,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 13,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 19,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 20,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 3,
+    ingredient_id: 7,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 19,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 12,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 22,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 1,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 10,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 4,
+    ingredient_id: 21,
+  },
+  {
+    recipe_id: 5,
+    ingredient_id: 23,
+  },
+  {
+    recipe_id: 5,
+    ingredient_id: 16,
+  },
+  {
+    recipe_id: 5,
+    ingredient_id: 17,
+  },
+  {
+    recipe_id: 5,
+    ingredient_id: 18,
+  },
+  {
+    recipe_id: 5,
+    ingredient_id: 24,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 34,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 33,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 12,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 18,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 13,
+  },
+  {
+    recipe_id: 6,
+    ingredient_id: 25,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 9,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 36,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 28,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 39,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 37,
+  },
+  {
+    recipe_id: 7,
+    ingredient_id: 38,
+  },
+  {
+    recipe_id: 8,
+    ingredient_id: 40,
+  },
+  {
+    recipe_id: 8,
+    ingredient_id: 34,
+  },
+  {
+    recipe_id: 8,
+    ingredient_id: 35,
+  },
+  {
+    recipe_id: 8,
+    ingredient_id: 36,
+  },
+  {
+    recipe_id: 8,
+    ingredient_id: 26,
+  },
+  {
+    recipe_id: 9,
+    ingredient_id: 27,
+  },
+  {
+    recipe_id: 9,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 9,
+    ingredient_id: 7,
+  },
+  {
+    recipe_id: 9,
+    ingredient_id: 28,
+  },
+  {
+    recipe_id: 9,
+    ingredient_id: 29,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 6,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 33,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 32,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 31,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 7,
+  },
+  {
+    recipe_id: 10,
+    ingredient_id: 12,
+  },
+];
+
+db.prepare(
+  `
    CREATE TABLE IF NOT EXISTS recipes (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        title TEXT NOT NULL,
        cooking_instructions TEXT NOT NULL,
        is_vegetarian TEXT NOT NULL,
+       is_favorite TEXT NOT NULL,
        serving_portions INTEGER NOT NULL,
        image TEXT NOT NULL,
-       ingredients TEXT NOT NULL,
        creation_date TEXT NOT NULL
     )
-`).run();
+`
+).run();
+
+db.prepare(
+  `
+   CREATE TABLE IF NOT EXISTS ingredients (
+         id INTEGER PRIMARY KEY AUTOINCREMENT,
+         name TEXT NOT NULL,
+         description TEXT NOT NULL
+   )
+`
+).run();
+
+db.prepare(
+  `
+   CREATE TABLE IF NOT EXISTS recipe_ingredients (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      recipe_id INTEGER,
+      ingredient_id INTEGER,
+      FOREIGN KEY(recipe_id) REFERENCES recipes(id),
+      FOREIGN KEY(ingredient_id) REFERENCES ingredients(id)
+   )
+   `
+).run();
 
 async function initData() {
   const stmt = db.prepare(`
@@ -316,10 +726,26 @@ async function initData() {
          @title,
          @cooking_instructions,
          @is_vegetarian,
+         @is_favorite,
          @serving_portions,
          @image,
-         @ingredients,
          @creation_date
+      )
+   `);
+
+   const stmt2 = db.prepare(`
+      INSERT INTO ingredients VALUES (
+         null,
+         @name,
+         @description
+      )
+   `);
+
+   const stmt3 = db.prepare(`
+      INSERT INTO recipe_ingredients VALUES (
+         null,
+         @recipe_id,
+         @ingredient_id
       )
    `);
 
@@ -327,6 +753,14 @@ async function initData() {
     recipe.is_vegetarian = recipe.is_vegetarian.toString();
     recipe.is_favorite = recipe.is_favorite.toString();
     stmt.run(recipe);
+  }
+
+  for (const engredient of ingredients) {
+    stmt2.run(engredient);
+  }
+
+  for (const recipe_ingredient of recipe_ingredients) {
+    stmt3.run(recipe_ingredient);
   }
 }
 
