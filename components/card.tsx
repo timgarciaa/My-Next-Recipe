@@ -44,22 +44,26 @@ function Card({ recipe }: Props) {
         width={240}
         height={240}
       />
-      <div className="flex flex-col gap-1 px-1 pt-1 items-center w-full">
+      <div className="flex flex-col gap-2 px-1 pt-1 items-center w-full">
         <h3>{recipe.title}</h3>
         <div className="flex">
           {[...Array(recipe.serving_portions)].map((_, i) => (
             <UserIcon key={i} className="w-5 h-5" />
           ))}
         </div>
-        {recipe.is_vegetarian === "true" && (
-          <Image src={VeganIcon.src} alt="Vegan" width={20} height={20} />
+      </div>
+      <div className="absolute top-2 left-2 z-50" onClick={clickHeart}>
+      {recipe.is_vegetarian === "true" && (
+        <div className="bg-white rounded-full p-1">
+          <Image src={VeganIcon.src} alt="Vegan" width={32} height={32} />
+        </div>
         )}
       </div>
       <div className="absolute top-2 right-2 z-50" onClick={clickHeart}>
         {isFavoriteState ? (
-          <HeartIconSolid className="w-5 h-5" />
+          <HeartIconSolid className="w-8 h-8" color={"#D10000"} />
         ) : (
-          <HeartIcon className="w-5 h-5" />
+          <HeartIcon className="w-8 h-8" />
         )}
       </div>
     </div>
