@@ -34,14 +34,6 @@ function HeaderMain({}: Props) {
                 Ingredients
               </Link>
             </li>
-            <li>
-              <Link
-                href="/about"
-                className="no-underline text-[#ddd6cb] font-bold py-2 px-4 rounded-md"
-              >
-                About
-              </Link>
-            </li>
           </ul>
         </nav>
       </div>

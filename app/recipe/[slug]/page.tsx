@@ -33,22 +33,24 @@ export default async function RecipePage({ params }: { params: { slug: string } 
         <p className="mb-2 mt-5">
           <strong>Ingredients:</strong>{" "}
         </p>
-        <ul className="grid grid-cols-4 gap-4">
+        <ul className="grid grid-cols-4 gap-4 border-2 rounded-md p-5">
           {recipeIngredients.map((ingredient: any) => {
             return (
               <li key={ingredient.ingredient_id}>
-                {ingredient.ingredient_name}
+                {ingredient.ingredient_name.toUpperCase()}
               </li>
             );
           })}
         </ul>
         <div className="mt-5">
           <strong>Cooking Instructions:</strong>
+          <div className="border-2 rounded-md p-5 mt-2">
           {instructions.map((instruction: string, index: number) => (
             <p key={index} className="mb-2">
               {instruction}
             </p>
           ))}
+          </div>
         </div>
       </div>
     </div>

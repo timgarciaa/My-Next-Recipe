@@ -27,6 +27,7 @@ export default function RecipeAddForm() {
             type="text"
             name="title"
             id="title"
+            required
           />
           <label htmlFor="is_vegetarian">Vegetarian</label>
           <select
@@ -43,6 +44,7 @@ export default function RecipeAddForm() {
             type="number"
             name="serving_portions"
             id="serving_portions"
+            required
           />
           <label htmlFor="ingredients">Ingredients</label>
           <div className="grid grid-cols-4 gap-4">
@@ -58,7 +60,9 @@ export default function RecipeAddForm() {
                     id={ingredientId}
                     value={ingredient.id}
                   />
-                  <label htmlFor={ingredient.name} className="pl-2">{ingredient.name}</label>
+                  <label htmlFor={ingredient.name} className="pl-2">
+                    {ingredient.name}
+                  </label>
                 </div>
               );
             })}
@@ -70,7 +74,8 @@ export default function RecipeAddForm() {
             id="cooking_instructions"
             cols={30}
             rows={10}
-          ></textarea>
+            required
+          />
           <ImagePicker label="Image" name="image" />
           <button
             className="bg-[#743f22] text-white px-4 py-2 rounded-lg"

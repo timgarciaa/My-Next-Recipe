@@ -1,6 +1,5 @@
 import { createIngredient } from "@/utils/actionUtils";
 
-
 export default async function IngredientForm() {
   return (
     <div className="flex min-h-screen flex-col p-24">
@@ -11,7 +10,13 @@ export default async function IngredientForm() {
           <form className="flex flex-col gap-4" action={createIngredient}>
             <div className="flex gap-2 items-center">
               <label htmlFor="name">Name:</label>
-              <input className="text-black py-1 px-2 rounded-sm" type="text" name="name" id="name" />
+              <input
+                className="text-black py-1 px-2 rounded-sm"
+                type="text"
+                name="name"
+                id="name"
+                required
+              />
             </div>
             <button className="bg-[#743f22] text-white px-2 py-2 rounded-lg">
               Add Ingredient
