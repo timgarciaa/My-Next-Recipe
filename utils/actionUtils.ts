@@ -5,12 +5,16 @@ import fs from "node:fs";
 import { redirect } from "next/navigation";
 
 export async function getRecipes() {
-  const response = await fetch("http://localhost:3000/api/recipes");
+  const response = await fetch("http://localhost:3000/api/recipes", {
+    next: { tags: ["recipes"] },
+  });
   return await response.json();
 }
 
 export async function getIngredients() {
-  const response = await fetch("http://localhost:3000/api/ingredients");
+  const response = await fetch("http://localhost:3000/api/ingredients", {
+    next: { tags: ["ingredients"] },
+  });
   return await response.json();
 }
 
@@ -25,13 +29,16 @@ export async function updateFavorite(recipe: Recipe) {
 
 export async function getRecipeIngredients(id: string) {
   const response = await fetch(
-    `http://localhost:3000/api/recipes/${id}/ingredients`
+    `http://localhost:3000/api/recipes/${id}/ingredients`,
+    { next: { tags: ["ingredients"] } }
   );
   return await response.json();
 }
 
 export async function getRecipe(id: string) {
-  const response = await fetch(`http://localhost:3000/api/recipes/${id}`);
+  const response = await fetch(`http://localhost:3000/api/recipes/${id}`, {
+    next: { tags: ["recipe", "ingredients"] },
+  });
   return await response.json();
 }
 
@@ -105,6 +112,52 @@ export async function deleteRecipe(id: string) {
   redirect("/");
 }
 
+export async function deleteIngredient(id: string) {
+  await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+    method: "DELETE",
+  });
+  revalidateTag("ingredients");
+  redirect("/ingredients");
+}
+
+export async function createIngredient(formData: FormData) {
+  const name = formData.get("name");
+  const ingredient = { name: name ? name.toString() : "" };
+
+  await fetch("http://localhost:3000/api/ingredients", {
+    method: "POST",
+    body: JSON.stringify(ingredient),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  revalidateTag("ingredients");
+  redirect("/ingredients");
+}
+
+export async function updateIngredient(formData: FormData) {
+  console.log('update ingredient', formData);
+  const name = formData.get("name");
+  const id = formData.get("id");
+
+  const ingredient = { name: name ? name.toString() : "" };
+
+  await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(ingredient),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  revalidateTag("ingredients");
+  redirect("/ingredients");
+}
+
+export async function getIngredient(id: string) {
+  const response = await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+    next: { tags: ["ingredients"] },
+  });
+  return await response.json();
+}
+
 export async function updateRecipe(formData: FormData) {
   const title = formData.get("title");
   const cooking_instructions = formData.get("cooking_instructions");
@@ -116,12 +169,12 @@ export async function updateRecipe(formData: FormData) {
 
   let fileName = "";
   if (image) {
-    console.log('image is not empty');
     const extension =
       image instanceof File ? image.name.split(".").pop() : null;
-    const fileName = `/images/${title}.${extension}`;
+    const datetimestamp = new Date().getTime();
+    fileName = `/images/${title}${datetimestamp}.${extension}`;
 
-    const stream = fs.createWriteStream(`public/images/${fileName}`);
+    const stream = fs.createWriteStream(`public${fileName}`);
     const bufferedImage = await (image instanceof File
       ? image.arrayBuffer()
       : null);
@@ -133,12 +186,9 @@ export async function updateRecipe(formData: FormData) {
         }
       });
     }
-  }
-  else {
+  } else {
     fileName = formData.get("currentImage") as string;
   }
-
-  console.log('fileName: ', fileName);
 
   const recipe: Recipe = {
     id: Number(formData.get("id")),
@@ -146,13 +196,11 @@ export async function updateRecipe(formData: FormData) {
     cooking_instructions: cooking_instructions
       ? cooking_instructions.toString()
       : "",
-    is_vegetarian: is_vegetarian ? "true" : "false",
-    is_favorite: is_favorite ? "true" : "false",
+    is_vegetarian: is_vegetarian?.toString() === "true" ? "true" : "false",
+    is_favorite: is_favorite?.toString() === "true" ? "true" : "false",
     serving_portions: serving_portions ? Number(serving_portions) : 0,
     image: `${fileName}`,
   };
-
-  console.log('recipe: ', recipe);
 
   await fetch("http://localhost:3000/api/recipes", {
     method: "PUT",
@@ -160,19 +208,20 @@ export async function updateRecipe(formData: FormData) {
     headers: { "Content-Type": "application/json" },
   });
 
-  const ingredientsArray = ingredients ? String(ingredients).split(',').map(Number) : [];
-
-  console.log('recipe.id: ', recipe.id);
-  console.log('ingredients: ', ingredientsArray);
+  const ingredientsArray = ingredients
+    ? String(ingredients).split(",").map(Number)
+    : [];
 
   await fetch(`http://localhost:3000/api/recipes/${recipe.id}/ingredients`, {
     method: "PUT",
-    body: JSON.stringify({ recipeId: recipe.id, ingredientIds: ingredientsArray }),
+    body: JSON.stringify({
+      recipeId: recipe.id,
+      ingredientIds: ingredientsArray,
+    }),
     headers: { "Content-Type": "application/json" },
   });
 
-  revalidatePath("/");
-  revalidatePath(`/recipe/${recipe.id}`);
   revalidateTag("recipes");
+  revalidateTag("recipe");
   redirect(`/recipe/${recipe.id}`);
 }

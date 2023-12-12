@@ -17,7 +17,7 @@ export default function RecipeAddForm() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-4xl p-6 rounded shadow-md bg-[#5a453b]">
         <h1 className="text-2xl font-bold mb-4">Add Recipe</h1>
         <form className="flex flex-col gap-4" action={addRecipe}>

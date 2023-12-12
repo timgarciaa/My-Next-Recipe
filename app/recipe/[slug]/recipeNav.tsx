@@ -1,8 +1,7 @@
 "use client";
-import {
-  deleteRecipe,
-} from "@/utils/actionUtils";
+import { deleteRecipe } from "@/utils/actionUtils";
 import { useRouter } from "next/navigation";
+import Button from "@/components/button";
 
 type Props = {
   recipeId: string;
@@ -18,8 +17,14 @@ export default function RecipeNav({ recipeId }: Props) {
   };
   return (
     <div className="flex items-center gap-4 pb-5">
-      <button onClick={() => {router.push(`/recipe/${recipeId}/edit`)}}>Edit</button>
-      <button onClick={deleteRecipeFn}>Delete</button>
+      <Button
+        label="Edit"
+        onClick={() => {
+          router.push(`/recipe/${recipeId}/edit`);
+        }}
+        color={"#008CBA"}
+      />
+      <Button label="Delete" onClick={deleteRecipeFn} color={"#D10000"} />
     </div>
   );
 }

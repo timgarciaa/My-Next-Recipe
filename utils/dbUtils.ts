@@ -24,7 +24,7 @@ export function getRecipe(id: number) {
 
 export function getIngredients() {
   const db = sql("recipes.db");
-  const ingredients = db.prepare("SELECT * FROM ingredients").all();
+  const ingredients = db.prepare("SELECT * FROM ingredients ORDER BY name ASC").all();
   return ingredients;
 }
 
@@ -134,8 +134,6 @@ export function updateRecipeIngredients(
   recipe_id: number,
   ingredientIds: number[]
 ) {
-
-  console.log('ingredientIds: ', ingredientIds);
   const db = sql("recipes.db");
 
   const deleteRecipeIngredient = db.prepare(
@@ -155,7 +153,6 @@ export function updateRecipeIngredients(
   );
 
   for (const ingredientId of ingredientIds) {
-    console.log(ingredientId);
     addRecipeIngredient.run(recipe_id, ingredientId);
   }
 
@@ -178,4 +175,39 @@ export function deleteRecipeIngredients(id: number) {
     .prepare("DELETE FROM recipe_ingredients WHERE recipe_id = ?")
     .run(id);
   return deleteRecipeIngredients;
+}
+
+export function deleteIngredient(id: number) {
+  const db = sql("recipes.db");
+  const deleteRecipeIngredients = db
+    .prepare("DELETE FROM recipe_ingredients WHERE ingredient_id = ?")
+    .run(id);
+  const deleteIngredient = db
+    .prepare("DELETE FROM ingredients WHERE id = ?")
+    .run(id);
+  return deleteIngredient;
+}
+
+export function addIngredient(name: string) {
+  const db = sql("recipes.db");
+  const addIngredient = db
+    .prepare("INSERT INTO ingredients (name) VALUES (?)")
+    .run(name);
+  return addIngredient;
+}
+
+export function updateIngredient(id: number, name: string) {
+  const db = sql("recipes.db");
+  const updateIngredient = db
+    .prepare("UPDATE ingredients SET name = ? WHERE id = ?")
+    .run(name, id);
+  return updateIngredient;
+}
+
+export function getIngredient(id: number) {
+  const db = sql("recipes.db");
+  const ingredient = db
+    .prepare("SELECT * FROM ingredients WHERE id = ?")
+    .get(id);
+  return ingredient;
 }

@@ -23,6 +23,8 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
   const [currentImage, setCurrentImage] = useState<string | undefined>("");
   const [image, setImage] = useState<File>();
 
+  const formData = new FormData();
+
   useEffect(() => {
     const fetchData = async () => {
       const ingredients = await getIngredients();
@@ -40,7 +42,6 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
   }, []);
 
   useEffect(() => {
-    console.log("recipe: ", recipe);
     setTitle(recipe?.title || "");
     setIsVegetarian(recipe?.is_vegetarian === "true" ? "true" : "false");
     setServingPortions(recipe?.serving_portions || 0);
@@ -59,7 +60,6 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
   };
 
   const updateRecipeHandler = () => {
-    const formData = new FormData();
     formData.append("title", title);
     formData.append("is_vegetarian", isVegetarian);
     formData.append("serving_portions", servingPortions.toString());
@@ -72,8 +72,15 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
     updateRecipe(formData);
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      formData.append("image", file);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-4xl p-6 rounded shadow-md bg-[#5a453b]">
         <h1 className="text-2xl font-bold mb-4">Update Recipe</h1>
         <form className="flex flex-col gap-4" action={updateRecipeHandler}>
@@ -141,7 +148,11 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
             value={cookingInstructions}
             onChange={(e) => setCookingInstructions(e.target.value)}
           ></textarea>
-          <ImagePicker label="Image" name="image" />
+          <ImagePicker
+            label="Image"
+            name="image"
+            onChange={handleImageChange}
+          />
           <button
             className="bg-[#743f22] text-white px-4 py-2 rounded-lg"
             type="submit"

@@ -28,6 +28,14 @@ function HeaderMain({}: Props) {
             </li>
             <li>
               <Link
+                href="/ingredients"
+                className="no-underline text-[#ddd6cb] font-bold py-2 px-4 rounded-md"
+              >
+                Ingredients
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/about"
                 className="no-underline text-[#ddd6cb] font-bold py-2 px-4 rounded-md"
               >

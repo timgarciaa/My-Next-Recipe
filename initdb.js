@@ -212,202 +212,162 @@ const ingredients = [
   {
     //1
     name: "ground beef",
-    description: "minced beef",
   },
   {
     //2
     name: "burger bun",
-    description: "bread roll",
   },
   {
     //3
     name: "cheese",
-    description: "dairy product",
   },
   {
     //4
     name: "tomato",
-    description: "vegetable",
   },
   {
     //5
     name: "lettuce",
-    description: "vegetable",
   },
   {
     //6
     name: "salt",
-    description: "mineral",
   },
   {
     //7
     name: "pepper",
-    description: "spice",
   },
   {
     //8
     name: "oil",
-    description: "fat",
   },
   {
     //9
     name: "flour",
-    description: "powder",
   },
   {
     //10
     name: "tomato sauce",
-    description: "sauce",
   },
   {
     //11
     name: "oregano",
-    description: "herb",
   },
   {
     //12
     name: "onion",
-    description: "vegetable",
   },
   {
     //13
     name: "bell pepper",
-    description: "vegetable",
   },
   {
     //14
     name: "mushroom",
-    description: "vegetable",
   },
   {
     //15
     name: "salami",
-    description: "sausage",
   },
   {
     //16
     name: "cucumber",
-    description: "vegetable",
   },
   {
     //17
     name: "avocado",
-    description: "fruit",
   },
   {
     //18
     name: "carrot",
-    description: "vegetable",
   },
   {
     //19
     name: "olive oil",
-    description: "oil",
   },
   {
     //20
     name: "vinegar",
-    description: "liquid",
   },
   {
     //21
     name: "spaghetti",
-    description: "pasta",
   },
   {
     //22
     name: "garlic",
-    description: "vegetable",
   },
   {
     //23
     name: "sushi rice",
-    description: "rice",
   },
   {
     //24
     name: "nori",
-    description: "seaweed",
   },
   {
     //25
     name: "ramen noodles",
-    description: "noodles",
   },
   {
     //26
     name: "beef",
-    description: "meat",
   },
   {
     //27
     name: "chicken wings",
-    description: "poultry",
   },
   {
     //28
     name: "butter",
-    description: "dairy product",
   },
   {
     //29
     name: "hot sauce",
-    description: "sauce",
   },
   {
     //30
     name: "blue cheese",
-    description: "cheese",
   },
   {
     //31
     name: "pork",
-    description: "meat",
   },
   {
     //32
     name: "sinigang mix",
-    description: "mix",
   },
   {
     //33
     name: "miso paste",
-    description: "paste",
   },
   {
     //34
     name: "soy sauce",
-    description: "sauce",
   },
   {
     //35
     name: "mirin",
-    description: "alcohol",
   },
   {
     //36
     name: "sugar",
-    description: "sugar",
   },
   {
     //37
     name: "baking powder",
-    description: "powder",
   },
   {
     //38
     name: "cocoa powder",
-    description: "powder",
   },
   {
     //39
     name: "egg",
-    description: "egg",
   },
   {
     //40
     name: "water",
-    description: "liquid",
   },
 ];
 
@@ -701,8 +661,7 @@ db.prepare(
   `
    CREATE TABLE IF NOT EXISTS ingredients (
          id INTEGER PRIMARY KEY AUTOINCREMENT,
-         name TEXT NOT NULL,
-         description TEXT NOT NULL
+         name TEXT NOT NULL
    )
 `
 ).run();
@@ -733,15 +692,14 @@ async function initData() {
       )
    `);
 
-   const stmt2 = db.prepare(`
+  const stmt2 = db.prepare(`
       INSERT INTO ingredients VALUES (
          null,
-         @name,
-         @description
+         @name
       )
    `);
 
-   const stmt3 = db.prepare(`
+  const stmt3 = db.prepare(`
       INSERT INTO recipe_ingredients VALUES (
          null,
          @recipe_id,
