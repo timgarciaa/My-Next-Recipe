@@ -13,7 +13,7 @@ function HeaderMain({}: Props) {
       <div className="z-50 flex justify-between items-center px-36 pt-2 w-full lg:h-48 md:h-40">
         <Link href="/" className="flex justify-center items-center gap-5 pt-2">
           <Image src={logoImg.src} alt="Pizza" width={100} height={100} />
-          <p className="font-bold tracking-[0.12rem]">MY NEXT RECIPE</p>
+          <h1 className="font-bold text-3xl tracking-[0.12rem]">MY NEXT RECIPE</h1>
         </Link>
 
         <nav>
