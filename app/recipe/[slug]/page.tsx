@@ -27,6 +27,9 @@ export default async function RecipePage({ params }: { params: { slug: string } 
         <p className="mb-2">
           <strong>Vegetarian:</strong> {recipe.is_vegetarian}
         </p>
+        <p className="mb-2">
+          <strong>Created Date:</strong> {recipe.creation_date}
+        </p>
         <p className="mb-2 mt-5">
           <strong>Serving Portions:</strong> {recipe.serving_portions}
         </p>

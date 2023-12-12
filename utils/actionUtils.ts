@@ -3,6 +3,7 @@ import { revalidateTag, revalidatePath } from "next/cache";
 import { Recipe } from "@/types/recipe.type";
 import fs from "node:fs";
 import { redirect } from "next/navigation";
+import { format } from 'date-fns';
 
 export async function getRecipes() {
   const response = await fetch("http://localhost:3000/api/recipes", {
@@ -76,7 +77,7 @@ export async function addRecipe(formData: FormData) {
     is_favorite: is_favorite ? "true" : "false",
     serving_portions: serving_portions ? Number(serving_portions) : 0,
     image: `/images/${fileName}`,
-    creation_date: new Date().toISOString(),
+    creation_date: format(new Date(), 'dd-MM-yyyy HH:mm'),
   };
 
   const createdRecipe = await fetch("http://localhost:3000/api/recipes", {
