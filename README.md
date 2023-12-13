@@ -61,6 +61,13 @@ This project uses the following technologies:
     - Then the card should be put on top of the list in alpahabetical order
 
 
+## JEST Testing
+I have implemented few unit tests to showcase the unit testing of jest. I would love to add more test for the API and UI.
+
+1. I used jest for unit testing.
+1. Run command `npm run test`
+1. This will run the tests in @/tests
+
 ## Credits
 
 The vegan icons used in this project were created by [pikslgrafik](https://www.flaticon.com/authors/pikslgrafik) and are available on [Flaticon](https://www.flaticon.com/free-icons/vegan).

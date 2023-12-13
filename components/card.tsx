@@ -44,7 +44,7 @@ function Card({ recipe }: Props) {
         width={240}
         height={240}
       />
-      <div className="flex flex-col gap-2 px-1 pt-1 items-center w-full">
+      <div className="flex flex-col gap-2 px-1 pt-2 items-center w-full">
         <h3>{recipe.title}</h3>
         <div className="flex">
           {[...Array(recipe.serving_portions)].map((_, i) => (
