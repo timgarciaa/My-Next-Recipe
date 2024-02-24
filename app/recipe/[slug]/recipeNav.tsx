@@ -1,5 +1,5 @@
 "use client";
-import { deleteRecipe } from "@/utils/actionUtils";
+import { deleteRecipeAction } from "@/utils/actionUtils";
 import { useRouter } from "next/navigation";
 import Button from "@/components/button";
 
@@ -12,7 +12,7 @@ export default function RecipeNav({ recipeId }: Props) {
 
   const deleteRecipeFn = async () => {
     if (window.confirm("Are you sure you want to delete this recipe?")) {
-      const response = await deleteRecipe(recipeId);
+      const response = await deleteRecipeAction(recipeId);
     }
   };
   return (

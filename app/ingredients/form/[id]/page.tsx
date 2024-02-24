@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useState, useEffect } from "react";
-import { getIngredient, updateIngredient } from "@/utils/actionUtils";
+import { getIngredientAction, updateIngredientAction } from "@/utils/actionUtils";
 
 export default function IngredientUpdateForm({
   params,
@@ -16,7 +16,7 @@ export default function IngredientUpdateForm({
 
   useEffect(() => {
     const fetchData = async () => {
-      const ingredient = await getIngredient(id);
+      const ingredient = await getIngredientAction(id);
       setIngredient(ingredient);
     };
 
@@ -32,7 +32,7 @@ export default function IngredientUpdateForm({
     const formData = new FormData();
     formData.append("name", name);
     formData.append("id", id);
-    updateIngredient(formData);
+    updateIngredientAction(formData);
   }
 
   return (

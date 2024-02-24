@@ -2,10 +2,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import {
-  getRecipe,
-  getRecipeIngredients,
-  getIngredients,
-  updateRecipe,
+  getRecipeAction,
+  getRecipeIngredientsAction,
+  getIngredientsAction,
+  updateRecipeAction,
 } from "@/utils/actionUtils";
 import { Recipe } from "@/types/recipe.type";
 import { Ingredient } from "@/types/ingredient.type";
@@ -13,7 +13,7 @@ import ImagePicker from "@/components/imagePicker";
 
 export default function EditRecipe({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [recipe, setRecipe] = useState<Recipe>();
   const [title, setTitle] = useState("");
   const [isVegetarian, setIsVegetarian] = useState("false");
@@ -27,11 +27,11 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const ingredients = await getIngredients();
+      const ingredients = await getIngredientsAction() as Ingredient[];
       setIngredients(ingredients.map((ingredient: Ingredient) => ingredient));
-      const recipe = await getRecipe(slug);
+      const recipe = await getRecipeAction(slug);
       setRecipe(recipe);
-      const recipeIngredients = await getRecipeIngredients(slug);
+      const recipeIngredients = await getRecipeIngredientsAction(slug);
       const recipeIngredientIds = recipeIngredients.map(
         (ri: any) => ri.ingredient_id
       );
@@ -69,7 +69,7 @@ export default function EditRecipe({ params }: { params: { slug: string } }) {
     if (recipe?.id !== undefined)
       formData.append("id", recipe?.id.toString() || "");
     if (image !== undefined) formData.append("image", image);
-    updateRecipe(formData);
+    updateRecipeAction(formData);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

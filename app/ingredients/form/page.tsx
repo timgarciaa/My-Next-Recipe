@@ -1,4 +1,4 @@
-import { createIngredient } from "@/utils/actionUtils";
+import { createIngredientAction } from "@/utils/actionUtils";
 
 export default async function IngredientForm() {
   return (
@@ -7,7 +7,7 @@ export default async function IngredientForm() {
         <h1 className="text-4xl font-bold mb-4">Add Ingredient</h1>
 
         <div className="">
-          <form className="flex flex-col gap-4" action={createIngredient}>
+          <form className="flex flex-col gap-4" action={createIngredientAction}>
             <div className="flex gap-2 items-center">
               <label htmlFor="name">Name:</label>
               <input

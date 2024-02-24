@@ -4,24 +4,22 @@ import { Recipe } from "@/types/recipe.type";
 import fs from "node:fs";
 import { redirect } from "next/navigation";
 import { format } from "date-fns";
+import { getIngredients, addIngredient } from "@/utils/dbUtils";
+import { getRecipes, updateRecipe, addRecipe } from "@/utils/dbUtils";
 
 const apiUrl = process.env.API_URL;
 
-export async function getRecipes() {
-  const response = await fetch(`${apiUrl}/api/recipes`, {
-    next: { tags: ["recipes"] },
-  });
-  return await response.json();
+export async function getRecipesAction() {
+  const recipes = getRecipes();
+  return recipes;
 }
 
-export async function getIngredients() {
-  const response = await fetch(`${apiUrl}/api/ingredients`, {
-    next: { tags: ["ingredients"] },
-  });
-  return await response.json();
+export async function getIngredientsAction() {
+  const ingredients = getIngredients();
+  return ingredients;
 }
 
-export async function updateFavorite(recipe: Recipe) {
+export async function updateFavoriteAction(recipe: Recipe) {
   await fetch(`${apiUrl}/api/recipes`, {
     method: "PUT",
     body: JSON.stringify(recipe),
@@ -30,21 +28,21 @@ export async function updateFavorite(recipe: Recipe) {
   revalidateTag("recipes");
 }
 
-export async function getRecipeIngredients(id: string) {
+export async function getRecipeIngredientsAction(id: string) {
   const response = await fetch(`${apiUrl}/api/recipes/${id}/ingredients`, {
     next: { tags: ["ingredients"] },
   });
   return await response.json();
 }
 
-export async function getRecipe(id: string) {
+export async function getRecipeAction(id: string) {
   const response = await fetch(`${apiUrl}/api/recipes/${id}`, {
     next: { tags: ["recipe", "ingredients"] },
   });
   return await response.json();
 }
 
-export async function addRecipe(formData: FormData) {
+export async function addRecipeAction(formData: FormData) {
   const title = formData.get("title");
   const cooking_instructions = formData.get("cooking_instructions");
   const is_vegetarian = formData.get("is_vegetarian");
@@ -105,7 +103,7 @@ export async function addRecipe(formData: FormData) {
   redirect("/");
 }
 
-export async function deleteRecipe(id: string) {
+export async function deleteRecipeAction(id: string) {
   await fetch(`${apiUrl}/api/recipes/${id}`, {
     method: "DELETE",
   });
@@ -114,7 +112,7 @@ export async function deleteRecipe(id: string) {
   redirect("/");
 }
 
-export async function deleteIngredient(id: string) {
+export async function deleteIngredientAction(id: string) {
   await fetch(`${apiUrl}/api/ingredients/${id}`, {
     method: "DELETE",
   });
@@ -122,7 +120,7 @@ export async function deleteIngredient(id: string) {
   redirect("/ingredients");
 }
 
-export async function createIngredient(formData: FormData) {
+export async function createIngredientAction(formData: FormData) {
   const name = formData.get("name");
   const ingredient = { name: name ? name.toString() : "" };
 
@@ -136,7 +134,7 @@ export async function createIngredient(formData: FormData) {
   redirect("/ingredients");
 }
 
-export async function updateIngredient(formData: FormData) {
+export async function updateIngredientAction(formData: FormData) {
   console.log("update ingredient", formData);
   const name = formData.get("name");
   const id = formData.get("id");
@@ -153,14 +151,14 @@ export async function updateIngredient(formData: FormData) {
   redirect("/ingredients");
 }
 
-export async function getIngredient(id: string) {
+export async function getIngredientAction(id: string) {
   const response = await fetch(`${apiUrl}/api/ingredients/${id}`, {
     next: { tags: ["ingredients"] },
   });
   return await response.json();
 }
 
-export async function updateRecipe(formData: FormData) {
+export async function updateRecipeAction(formData: FormData) {
   const title = formData.get("title");
   const cooking_instructions = formData.get("cooking_instructions");
   const is_vegetarian = formData.get("is_vegetarian");

@@ -8,7 +8,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import { Recipe } from "@/types/recipe.type";
-import { updateFavorite } from "@/utils/actionUtils";
+import { updateFavoriteAction } from "@/utils/actionUtils";
 
 type Props = {
   recipe: Recipe;
@@ -29,7 +29,7 @@ function Card({ recipe }: Props) {
     event.stopPropagation();
     setIsFavoriteState(!isFavoriteState);
     recipe.is_favorite = !isFavoriteState ? "true" : "false";
-    updateFavorite(recipe);
+    updateFavoriteAction(recipe);
   };
 
   return (
@@ -53,10 +53,10 @@ function Card({ recipe }: Props) {
         </div>
       </div>
       <div className="absolute top-2 left-2 z-50" onClick={clickHeart}>
-      {recipe.is_vegetarian === "true" && (
-        <div className="bg-white rounded-full p-1">
-          <Image src={VeganIcon.src} alt="Vegan" width={32} height={32} />
-        </div>
+        {recipe.is_vegetarian === "true" && (
+          <div className="bg-white rounded-full p-1">
+            <Image src={VeganIcon.src} alt="Vegan" width={32} height={32} />
+          </div>
         )}
       </div>
       <div className="absolute top-2 right-2 z-50" onClick={clickHeart}>

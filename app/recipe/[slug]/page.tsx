@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { getRecipe, getRecipeIngredients } from "@/utils/actionUtils";
+import { getRecipeAction, getRecipeIngredientsAction } from "@/utils/actionUtils";
 import RecipeNav from "./recipeNav";
 
 export default async function RecipePage({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const recipe = await getRecipe(slug);
-  const recipeIngredients = await getRecipeIngredients(slug);
+  const recipe = await getRecipeAction(slug);
+  const recipeIngredients = await getRecipeIngredientsAction(slug);
 
   const instructions = recipe.cooking_instructions.split("\n");
 

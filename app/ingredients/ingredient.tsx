@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/button";
-import { deleteIngredient } from "@/utils/actionUtils";
+import { deleteIngredientAction } from "@/utils/actionUtils";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -17,7 +17,7 @@ export default function Ingredient({ ingredient }: Props) {
   const deleteButtonHandler = async () => {
     console.log("delete button clicked");
     if (window.confirm("Are you sure you want to delete this recipe?")) {
-      const response = await deleteIngredient(ingredient.id);
+      const response = await deleteIngredientAction(ingredient.id);
     }
   };
 

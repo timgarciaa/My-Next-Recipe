@@ -1,15 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import ImagePicker from "@/components/imagePicker";
-import { addRecipe, getIngredients } from "@/utils/actionUtils";
+import { addRecipeAction, getIngredientsAction } from "@/utils/actionUtils";
 import { Ingredient } from "@/types/ingredient.type";
 
 export default function RecipeAddForm() {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const ingredients = await getIngredients();
+      const ingredients = (await getIngredientsAction()) as Ingredient[];
       setIngredients(ingredients.map((ingredient: Ingredient) => ingredient));
     };
 
@@ -20,7 +20,7 @@ export default function RecipeAddForm() {
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-4xl p-6 rounded shadow-md bg-[#5a453b]">
         <h1 className="text-2xl font-bold mb-4">Add Recipe</h1>
-        <form className="flex flex-col gap-4" action={addRecipe}>
+        <form className="flex flex-col gap-4" action={addRecipeAction}>
           <label htmlFor="title">Title</label>
           <input
             className="rounded-md p-2 text-black"
