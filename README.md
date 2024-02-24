@@ -1,6 +1,6 @@
 # MY NEXT RECIPE
 
-Welcome to My Next Recipe, find your next recipe here!
+Welcome to My Next Recipe, find your next recipe [here](https://my-next-recipe.vercel.app/)!
 
 ## Getting Started
 
