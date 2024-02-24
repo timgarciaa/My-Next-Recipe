@@ -3,24 +3,26 @@ import { revalidateTag, revalidatePath } from "next/cache";
 import { Recipe } from "@/types/recipe.type";
 import fs from "node:fs";
 import { redirect } from "next/navigation";
-import { format } from 'date-fns';
+import { format } from "date-fns";
+
+const apiUrl = process.env.API_URL;
 
 export async function getRecipes() {
-  const response = await fetch("http://localhost:3000/api/recipes", {
+  const response = await fetch(`${apiUrl}/api/recipes`, {
     next: { tags: ["recipes"] },
   });
   return await response.json();
 }
 
 export async function getIngredients() {
-  const response = await fetch("http://localhost:3000/api/ingredients", {
+  const response = await fetch(`${apiUrl}/api/ingredients`, {
     next: { tags: ["ingredients"] },
   });
   return await response.json();
 }
 
 export async function updateFavorite(recipe: Recipe) {
-  await fetch("http://localhost:3000/api/recipes", {
+  await fetch(`${apiUrl}/api/recipes`, {
     method: "PUT",
     body: JSON.stringify(recipe),
     headers: { "Content-Type": "application/json" },
@@ -29,15 +31,14 @@ export async function updateFavorite(recipe: Recipe) {
 }
 
 export async function getRecipeIngredients(id: string) {
-  const response = await fetch(
-    `http://localhost:3000/api/recipes/${id}/ingredients`,
-    { next: { tags: ["ingredients"] } }
-  );
+  const response = await fetch(`${apiUrl}/api/recipes/${id}/ingredients`, {
+    next: { tags: ["ingredients"] },
+  });
   return await response.json();
 }
 
 export async function getRecipe(id: string) {
-  const response = await fetch(`http://localhost:3000/api/recipes/${id}`, {
+  const response = await fetch(`${apiUrl}/api/recipes/${id}`, {
     next: { tags: ["recipe", "ingredients"] },
   });
   return await response.json();
@@ -77,10 +78,10 @@ export async function addRecipe(formData: FormData) {
     is_favorite: is_favorite ? "true" : "false",
     serving_portions: serving_portions ? Number(serving_portions) : 0,
     image: `/images/${fileName}`,
-    creation_date: format(new Date(), 'dd-MM-yyyy HH:mm'),
+    creation_date: format(new Date(), "dd-MM-yyyy HH:mm"),
   };
 
-  const createdRecipe = await fetch("http://localhost:3000/api/recipes", {
+  const createdRecipe = await fetch(`${apiUrl}/api/recipes`, {
     method: "POST",
     body: JSON.stringify(recipe),
     headers: { "Content-Type": "application/json" },
@@ -89,7 +90,7 @@ export async function addRecipe(formData: FormData) {
   const createdRecipeJson = await createdRecipe.json();
 
   const result = await fetch(
-    `http://localhost:3000/api/recipes/${createdRecipeJson.lastInsertRowid}/ingredients`,
+    `${apiUrl}/api/recipes/${createdRecipeJson.lastInsertRowid}/ingredients`,
     {
       method: "POST",
       body: JSON.stringify({ ingredientIds: ingredients }),
@@ -105,7 +106,7 @@ export async function addRecipe(formData: FormData) {
 }
 
 export async function deleteRecipe(id: string) {
-  await fetch(`http://localhost:3000/api/recipes/${id}`, {
+  await fetch(`${apiUrl}/api/recipes/${id}`, {
     method: "DELETE",
   });
   revalidatePath("/");
@@ -114,7 +115,7 @@ export async function deleteRecipe(id: string) {
 }
 
 export async function deleteIngredient(id: string) {
-  await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+  await fetch(`${apiUrl}/api/ingredients/${id}`, {
     method: "DELETE",
   });
   revalidateTag("ingredients");
@@ -125,7 +126,7 @@ export async function createIngredient(formData: FormData) {
   const name = formData.get("name");
   const ingredient = { name: name ? name.toString() : "" };
 
-  await fetch("http://localhost:3000/api/ingredients", {
+  await fetch(`${apiUrl}/api/ingredients`, {
     method: "POST",
     body: JSON.stringify(ingredient),
     headers: { "Content-Type": "application/json" },
@@ -136,13 +137,13 @@ export async function createIngredient(formData: FormData) {
 }
 
 export async function updateIngredient(formData: FormData) {
-  console.log('update ingredient', formData);
+  console.log("update ingredient", formData);
   const name = formData.get("name");
   const id = formData.get("id");
 
   const ingredient = { name: name ? name.toString() : "" };
 
-  await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+  await fetch(`${apiUrl}/api/ingredients/${id}`, {
     method: "PUT",
     body: JSON.stringify(ingredient),
     headers: { "Content-Type": "application/json" },
@@ -153,7 +154,7 @@ export async function updateIngredient(formData: FormData) {
 }
 
 export async function getIngredient(id: string) {
-  const response = await fetch(`http://localhost:3000/api/ingredients/${id}`, {
+  const response = await fetch(`${apiUrl}/api/ingredients/${id}`, {
     next: { tags: ["ingredients"] },
   });
   return await response.json();
@@ -203,7 +204,7 @@ export async function updateRecipe(formData: FormData) {
     image: `${fileName}`,
   };
 
-  await fetch("http://localhost:3000/api/recipes", {
+  await fetch(`${apiUrl}/api/recipes`, {
     method: "PUT",
     body: JSON.stringify(recipe),
     headers: { "Content-Type": "application/json" },
@@ -213,7 +214,7 @@ export async function updateRecipe(formData: FormData) {
     ? String(ingredients).split(",").map(Number)
     : [];
 
-  await fetch(`http://localhost:3000/api/recipes/${recipe.id}/ingredients`, {
+  await fetch(`${apiUrl}/api/recipes/${recipe.id}/ingredients`, {
     method: "PUT",
     body: JSON.stringify({
       recipeId: recipe.id,
